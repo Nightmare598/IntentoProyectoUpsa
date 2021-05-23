@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using IntentoProyectoUpsa.Models;
 
 namespace IntentoProyectoUpsa
 {
@@ -26,12 +28,13 @@ namespace IntentoProyectoUpsa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<PacienteContext>(opt => 
+                                                   opt.UseInMemoryDatabase("Lista de Pacientes"));
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+           /* services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IntentoProyectoUpsa", Version = "v1" });
-            });
+            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +43,9 @@ namespace IntentoProyectoUpsa
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+               /* app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IntentoProyectoUpsa v1"));
+               */
             }
 
             app.UseHttpsRedirection();
