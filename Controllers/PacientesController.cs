@@ -29,7 +29,7 @@ namespace IntentoProyectoUpsa.Controllers
 
         // GET: api/Pacientes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Paciente>> GetPaciente(long id)
+        public async Task<ActionResult<Paciente>> GetPaciente(int id)
         {
             var paciente = await _context.Pacientes.FindAsync(id);
 
@@ -44,7 +44,7 @@ namespace IntentoProyectoUpsa.Controllers
         // PUT: api/Pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaciente(long id, Paciente paciente)
+        public async Task<IActionResult> PutPaciente(int id, Paciente paciente)
         {
             if (id != paciente.idPaciente)
             {
@@ -80,13 +80,12 @@ namespace IntentoProyectoUpsa.Controllers
             _context.Pacientes.Add(paciente);
             await _context.SaveChangesAsync();
 
-            // return CreatedAtAction("GetPaciente", new { id = paciente.idPaciente }, paciente);
-            return CreatedAtAction(nameof(GetPaciente), new { id = paciente.idPaciente }, paciente);
+            return CreatedAtAction("GetPaciente", new { id = paciente.idPaciente }, paciente);
         }
 
         // DELETE: api/Pacientes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePaciente(long id)
+        public async Task<IActionResult> DeletePaciente(int id)
         {
             var paciente = await _context.Pacientes.FindAsync(id);
             if (paciente == null)
@@ -100,7 +99,7 @@ namespace IntentoProyectoUpsa.Controllers
             return NoContent();
         }
 
-        private bool PacienteExists(long id)
+        private bool PacienteExists(int id)
         {
             return _context.Pacientes.Any(e => e.idPaciente == id);
         }
