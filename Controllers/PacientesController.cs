@@ -80,7 +80,8 @@ namespace IntentoProyectoUpsa.Controllers
             _context.Pacientes.Add(paciente);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPaciente", new { id = paciente.idPaciente }, paciente);
+            // return CreatedAtAction("GetPaciente", new { id = paciente.idPaciente }, paciente);
+            return CreatedAtAction(nameof(GetPaciente), new { id = paciente.idPaciente }, paciente);
         }
 
         // DELETE: api/Pacientes/5
