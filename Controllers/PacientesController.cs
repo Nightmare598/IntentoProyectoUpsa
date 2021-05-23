@@ -9,7 +9,7 @@ using IntentoProyectoUpsa.Models;
 
 namespace IntentoProyectoUpsa.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Pacientes")]
     [ApiController]
     public class PacientesController : ControllerBase
     {
