@@ -24,7 +24,8 @@ namespace IntentoProyectoUpsa.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Paciente>>> GetPacientes()
         {
-            return await _context.Pacientes.ToListAsync();
+            // return await _context.Pacientes.ToListAsync();
+            return await _context.Pacientes.Include(u => u.Lecturas).ToListAsync();
         }
 
         // GET: api/Pacientes/5
@@ -77,10 +78,20 @@ namespace IntentoProyectoUpsa.Controllers
         [HttpPost]
         public async Task<ActionResult<Paciente>> PostPaciente(Paciente paciente)
         {
+            // paciente = _context.Pacientes.Include(m => m.Lecturas).Single(m => m.idPaciente == paciente.idPaciente);
+            List<Lectura> lec = paciente.Lecturas.Where(x => x.pacId == paciente.idPaciente).ToList();
+            paciente.Lecturas = lec;
             _context.Pacientes.Add(paciente);
             await _context.SaveChangesAsync();
+           // var lec = new Lectura() { };
+            
+            /* var lectura = await _context.Pacientes
+                              .Include(i => i.Lecturas)
+                            .FirstOrDefaultAsync(i => i.idPaciente == paciente.idPaciente);*/
 
-            return CreatedAtAction("GetPaciente", new { id = paciente.idPaciente }, paciente);
+            
+            return CreatedAtAction(nameof(GetPaciente), new { id = paciente.idPaciente }, paciente);
+            
         }
 
         // DELETE: api/Pacientes/5

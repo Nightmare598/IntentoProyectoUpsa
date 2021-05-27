@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace IntentoProyectoUpsa.Models
 {
@@ -13,7 +16,13 @@ namespace IntentoProyectoUpsa.Models
         public string ApellidoMaterno { get; set; }
         public int Telefono { get; set; }
         public string Direccion { get; set; }
-        public List<Lectura> Lecturas { get; set; }
+        public virtual List<Lectura> Lecturas { get; set; } 
+
+        public Paciente()
+        {
+            Lecturas = new List<Lectura>();
+        }
+       
     }
 
     public class Lectura
@@ -23,8 +32,11 @@ namespace IntentoProyectoUpsa.Models
         public DateTime Fecha { get; set; }
         public int RitmoCardiaco { get; set; }
         public int SaturacionOxigeno { get; set; }
-        public int idPaciente { get; set; }
-
-        public Paciente Paciente { get; set; }
+        public int pacId { get; set; }
+        [ForeignKey("pacId")]
+       /* [JsonIgnore]
+        [BindProperty]*/
+        public virtual Paciente Paciente { get; set; }
     }
+
 }
